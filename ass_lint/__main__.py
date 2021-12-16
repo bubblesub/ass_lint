@@ -15,6 +15,7 @@ from ass_lint.checks import (
     CheckContext,
     CheckDoubleWords,
     CheckDurations,
+    CheckFonts,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -45,6 +46,7 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
 
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckActorStats
+    yield CheckFonts
 
 
 async def list_violations(

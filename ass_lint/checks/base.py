@@ -1,6 +1,7 @@
 import logging
 from collections.abc import Iterable
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Union
 
 from ass_parser import AssEvent, AssFile
@@ -14,6 +15,7 @@ class CheckContext:
     renderer: AssRenderer
     video_resolution: tuple[int, int]
     default_language: str = "en_US"
+    fonts_dir = Path("~/.config/oc-fonts").expanduser()
 
 
 class BaseCheck:

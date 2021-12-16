@@ -11,6 +11,7 @@ from .base import (
 )
 from .double_words import CheckDoubleWords
 from .durations import CheckDurations
+from .fonts import CheckFonts
 
 __all__ = [
     "BaseCheck",
@@ -21,6 +22,7 @@ __all__ = [
     "CheckContext",
     "CheckDoubleWords",
     "CheckDurations",
+    "CheckFonts",
     "DebugInformation",
     "Information",
     "Violation",
