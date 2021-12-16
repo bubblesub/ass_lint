@@ -11,6 +11,7 @@ from ass_tag_parser import ass_to_plaintext
 
 @dataclass
 class CheckContext:
+    subs_path: Path
     ass_file: AssFile
     renderer: AssRenderer
     video_resolution: tuple[int, int]
@@ -29,7 +30,7 @@ class BaseCheck:
     def spell_check_lang(self) -> str:
         return (
             self.ctx.ass_file.script_info.get("Language")
-            or self.ctx.spell_check_lang
+            or self.ctx.default_language
         )
 
 

@@ -18,6 +18,7 @@ from .long_lines import CheckLongLines
 from .punctuation import CheckPunctuation
 from .punctuation_stats import CheckPunctuationStats
 from .quotes import CheckQuotes
+from .spelling import CheckSpelling
 
 __all__ = [
     "BaseCheck",
@@ -35,6 +36,7 @@ __all__ = [
     "CheckPunctuation",
     "CheckPunctuationStats",
     "CheckQuotes",
+    "CheckSpelling",
     "DebugInformation",
     "Information",
     "Violation",

@@ -22,6 +22,7 @@ from ass_lint.checks import (
     CheckPunctuation,
     CheckPunctuationStats,
     CheckQuotes,
+    CheckSpelling,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -38,6 +39,7 @@ def make_context(path: Path) -> CheckContext:
     renderer.set_source(ass_file=ass_file, video_resolution=video_resolution)
 
     return CheckContext(
+        subs_path=path,
         ass_file=ass_file,
         video_resolution=video_resolution,
         renderer=renderer,
@@ -58,6 +60,7 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
 
 
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:
+    yield CheckSpelling
     yield CheckActorStats
     yield CheckFonts
     yield CheckPunctuationStats
