@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "ass_lint"
+version = "0.1"
+description = "Check ASS files for common mistakes."
+authors = ["Marcin Kurczewski <dash@wind.garden>"]
+license = "GPLv3"
+readme = "README.md"
+repository = "https://github.com/bubblesub/ass_lint"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Text Processing",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [
+    { include = "ass_lint" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+ass-parser = "^1.0"
+fonttools = "^4.28.4"
+ass-renderer = "0.2"
+ass-tag-parser = "^2.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.12b0"
+pre-commit = "^2.16.0"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+py36 = true
+
+[tool.isort]
+known_third_party = ["ass_renderer", "ass_parser", "fontTools"]
+known_first_party = ["ass_lint"]
+multi_line_output = 3
+include_trailing_comma = true
