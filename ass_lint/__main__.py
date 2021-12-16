@@ -13,6 +13,7 @@ from ass_lint.checks import (
     CheckActorStats,
     CheckAssTags,
     CheckContext,
+    CheckDoubleWords,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -37,6 +38,7 @@ def make_context(path: Path) -> CheckContext:
 
 def get_event_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckAssTags
+    yield CheckDoubleWords
 
 
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:

@@ -9,6 +9,7 @@ from .base import (
     Information,
     Violation,
 )
+from .double_words import CheckDoubleWords
 
 __all__ = [
     "BaseCheck",
@@ -17,6 +18,7 @@ __all__ = [
     "CheckActorStats",
     "CheckAssTags",
     "CheckContext",
+    "CheckDoubleWords",
     "DebugInformation",
     "Information",
     "Violation",
