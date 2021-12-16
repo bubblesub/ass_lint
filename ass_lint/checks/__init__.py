@@ -15,6 +15,7 @@ from .fonts import CheckFonts
 from .grammar import CheckGrammar
 from .line_continuation import CheckLineContinuation
 from .long_lines import CheckLongLines
+from .punctuation import CheckPunctuation
 
 __all__ = [
     "BaseCheck",
@@ -29,6 +30,7 @@ __all__ = [
     "CheckGrammar",
     "CheckLineContinuation",
     "CheckLongLines",
+    "CheckPunctuation",
     "DebugInformation",
     "Information",
     "Violation",
