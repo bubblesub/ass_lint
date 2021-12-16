@@ -10,6 +10,7 @@ from .base import (
     Violation,
 )
 from .double_words import CheckDoubleWords
+from .durations import CheckDurations
 
 __all__ = [
     "BaseCheck",
@@ -19,6 +20,7 @@ __all__ = [
     "CheckAssTags",
     "CheckContext",
     "CheckDoubleWords",
+    "CheckDurations",
     "DebugInformation",
     "Information",
     "Violation",
