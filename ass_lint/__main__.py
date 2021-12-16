@@ -20,6 +20,7 @@ from ass_lint.checks import (
     CheckLineContinuation,
     CheckLongLines,
     CheckPunctuation,
+    CheckPunctuationStats,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -57,6 +58,7 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckActorStats
     yield CheckFonts
+    yield CheckPunctuationStats
 
 
 async def list_violations(

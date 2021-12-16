@@ -16,6 +16,7 @@ from .grammar import CheckGrammar
 from .line_continuation import CheckLineContinuation
 from .long_lines import CheckLongLines
 from .punctuation import CheckPunctuation
+from .punctuation_stats import CheckPunctuationStats
 
 __all__ = [
     "BaseCheck",
@@ -31,6 +32,7 @@ __all__ = [
     "CheckLineContinuation",
     "CheckLongLines",
     "CheckPunctuation",
+    "CheckPunctuationStats",
     "DebugInformation",
     "Information",
     "Violation",
