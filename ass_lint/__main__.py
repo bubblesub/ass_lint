@@ -18,6 +18,7 @@ from ass_lint.checks import (
     CheckFonts,
     CheckGrammar,
     CheckLineContinuation,
+    CheckLongLines,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -48,6 +49,7 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckDurations
     yield CheckLineContinuation
     yield CheckDoubleWords
+    yield CheckLongLines
 
 
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:
