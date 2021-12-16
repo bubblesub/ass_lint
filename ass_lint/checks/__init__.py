@@ -1,4 +1,5 @@
 from .actor_stats import CheckActorStats
+from .ass_tags import CheckAssTags
 from .base import (
     BaseCheck,
     BaseEventCheck,
@@ -14,6 +15,7 @@ __all__ = [
     "BaseEventCheck",
     "BaseResult",
     "CheckActorStats",
+    "CheckAssTags",
     "CheckContext",
     "DebugInformation",
     "Information",
