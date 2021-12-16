@@ -20,6 +20,7 @@ from .punctuation_stats import CheckPunctuationStats
 from .quotes import CheckQuotes
 from .spelling import CheckSpelling
 from .style_stats import CheckStyleStats
+from .style_validity import CheckStyleValidity
 
 __all__ = [
     "BaseCheck",
@@ -39,6 +40,7 @@ __all__ = [
     "CheckQuotes",
     "CheckSpelling",
     "CheckStyleStats",
+    "CheckStyleValidity",
     "DebugInformation",
     "Information",
     "Violation",

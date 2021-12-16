@@ -24,6 +24,7 @@ from ass_lint.checks import (
     CheckQuotes,
     CheckSpelling,
     CheckStyleStats,
+    CheckStyleValidity,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 
@@ -51,6 +52,7 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
     if full:
         yield CheckGrammar
 
+    yield CheckStyleValidity
     yield CheckAssTags
     yield CheckDurations
     yield CheckPunctuation
