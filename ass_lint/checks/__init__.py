@@ -13,6 +13,7 @@ from .double_words import CheckDoubleWords
 from .durations import CheckDurations
 from .fonts import CheckFonts
 from .grammar import CheckGrammar
+from .line_continuation import CheckLineContinuation
 
 __all__ = [
     "BaseCheck",
@@ -25,6 +26,7 @@ __all__ = [
     "CheckDurations",
     "CheckFonts",
     "CheckGrammar",
+    "CheckLineContinuation",
     "DebugInformation",
     "Information",
     "Violation",

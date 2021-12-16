@@ -26,6 +26,7 @@ ass-parser = "^1.0"
 fonttools = "^4.28.4"
 ass-renderer = "0.2"
 ass-tag-parser = "^2.4"
+regex = "^2021.11.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
