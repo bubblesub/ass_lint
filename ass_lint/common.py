@@ -20,7 +20,7 @@ class CheckContext:
     video: Optional[VideoSource]
 
     default_language: str = "en_US"
-    fonts_dir = Path("~/.config/oc-fonts").expanduser()
+    fonts_dir = Path("~/.config/ass-lint/fonts").expanduser()
 
     @property
     def language(self) -> str:
