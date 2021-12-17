@@ -21,6 +21,7 @@ from .quotes import CheckQuotes
 from .spelling import CheckSpelling
 from .style_stats import CheckStyleStats
 from .style_validity import CheckStyleValidity
+from .unnecessary_breaks import CheckUnnecessaryBreaks
 
 __all__ = [
     "BaseCheck",
@@ -41,6 +42,7 @@ __all__ = [
     "CheckSpelling",
     "CheckStyleStats",
     "CheckStyleValidity",
+    "CheckUnnecessaryBreaks",
     "DebugInformation",
     "Information",
     "Violation",
