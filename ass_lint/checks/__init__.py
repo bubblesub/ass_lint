@@ -7,6 +7,7 @@ from .base import (
     CheckContext,
     DebugInformation,
     Information,
+    LogLevel,
     Violation,
 )
 from .double_words import CheckDoubleWords
@@ -49,5 +50,6 @@ __all__ = [
     "CheckVideoResolution",
     "DebugInformation",
     "Information",
+    "LogLevel",
     "Violation",
 ]

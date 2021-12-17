@@ -4,6 +4,7 @@ import logging
 from collections.abc import Iterable
 from pathlib import Path
 
+import colorama
 from ass_parser import read_ass
 from ass_renderer import AssRenderer
 
@@ -28,6 +29,7 @@ from ass_lint.checks import (
     CheckTimes,
     CheckUnnecessaryBreaks,
     CheckVideoResolution,
+    LogLevel,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
 from ass_lint.video import VideoError, VideoSource
@@ -104,9 +106,21 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def print_result(result: BaseResult) -> None:
+    color = {
+        LogLevel.warning: colorama.Fore.RED,
+        LogLevel.info: colorama.Fore.RESET,
+        LogLevel.debug: colorama.Fore.BLUE,
+    }[result.log_level]
+    print(color + repr(result) + colorama.Fore.RESET)
+
+
 async def main() -> None:
+    colorama.init()
+
     args = parse_args()
-    logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
 
     ctx = make_context(args.path)
     checks = list(get_checks(full=args.full))
@@ -119,7 +133,7 @@ async def main() -> None:
                 logging.warning(ex)
             else:
                 async for result in check.run():
-                    logging.log(result.log_level, repr(result))
+                    print_result(result)
 
 
 if __name__ == "__main__":

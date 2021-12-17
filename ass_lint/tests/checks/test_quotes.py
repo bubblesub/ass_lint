@@ -1,10 +1,10 @@
-import logging
 import re
 from unittest.mock import Mock
 
 import pytest
 from ass_parser import AssEvent
 
+from ass_lint.checks.base import LogLevel
 from ass_lint.checks.quotes import CheckQuotes
 
 
@@ -17,117 +17,117 @@ def fixture_check_quotes(context: Mock) -> CheckQuotes:
 @pytest.mark.parametrize(
     "text, expected_violations",
     [
-        ("„What…", [("partial quote", logging.INFO)]),
-        ("…what.”", [("partial quote", logging.INFO)]),
-        ("„What.”", [(".*inside.*marks", logging.DEBUG)]),
-        ("„What”.", [(".*outside.*", logging.DEBUG)]),
-        ("„What”, he said.", [(".*outside.*", logging.DEBUG)]),
-        ("„What.” he said.", [(".*inside.*", logging.DEBUG)]),
-        ("„What!” he said.", [(".*inside.*", logging.DEBUG)]),
-        ("„What?” he said.", [(".*inside.*", logging.DEBUG)]),
-        ("„What…” he said.", [(".*inside.*", logging.DEBUG)]),
-        ("„What,” he said.", [(".*inside.*", logging.WARNING)]),
-        ("He said „what.”", [(".*inside.*", logging.WARNING)]),
-        ("He said „what!”", [(".*inside.*", logging.WARNING)]),
-        ("He said „what?”", [(".*inside.*", logging.WARNING)]),
-        ("He said „what…”", [(".*inside.*", logging.WARNING)]),
-        ('"What"', [("plain quotation mark", logging.INFO)]),
+        ("„What…", [("partial quote", LogLevel.info)]),
+        ("…what.”", [("partial quote", LogLevel.info)]),
+        ("„What.”", [(".*inside.*marks", LogLevel.debug)]),
+        ("„What”.", [(".*outside.*", LogLevel.debug)]),
+        ("„What”, he said.", [(".*outside.*", LogLevel.debug)]),
+        ("„What.” he said.", [(".*inside.*", LogLevel.debug)]),
+        ("„What!” he said.", [(".*inside.*", LogLevel.debug)]),
+        ("„What?” he said.", [(".*inside.*", LogLevel.debug)]),
+        ("„What…” he said.", [(".*inside.*", LogLevel.debug)]),
+        ("„What,” he said.", [(".*inside.*", LogLevel.warning)]),
+        ("He said „what.”", [(".*inside.*", LogLevel.warning)]),
+        ("He said „what!”", [(".*inside.*", LogLevel.warning)]),
+        ("He said „what?”", [(".*inside.*", LogLevel.warning)]),
+        ("He said „what…”", [(".*inside.*", LogLevel.warning)]),
+        ('"What"', [("plain quotation mark", LogLevel.info)]),
         (
             '"What…',
             [
-                ("plain quotation mark", logging.INFO),
-                ("partial quote", logging.INFO),
+                ("plain quotation mark", LogLevel.info),
+                ("partial quote", LogLevel.info),
             ],
         ),
         (
             '…what."',
             [
-                ("plain quotation mark", logging.INFO),
-                ("partial quote", logging.INFO),
+                ("plain quotation mark", LogLevel.info),
+                ("partial quote", LogLevel.info),
             ],
         ),
         (
             '"What."',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*marks", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*marks", LogLevel.debug),
             ],
         ),
         (
             '"What".',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*outside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*outside.*", LogLevel.debug),
             ],
         ),
         (
             '"What", he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*outside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*outside.*", LogLevel.debug),
             ],
         ),
         (
             '"What." he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.debug),
             ],
         ),
         (
             '"What!" he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.debug),
             ],
         ),
         (
             '"What?" he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.debug),
             ],
         ),
         (
             '"What…" he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.DEBUG),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.debug),
             ],
         ),
         (
             '"What," he said.',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.WARNING),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.warning),
             ],
         ),
         (
             'He said "what."',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.WARNING),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.warning),
             ],
         ),
         (
             'He said "what!"',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.WARNING),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.warning),
             ],
         ),
         (
             'He said "what?"',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.WARNING),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.warning),
             ],
         ),
         (
             'He said "what…"',
             [
-                ("plain quotation mark", logging.INFO),
-                (".*inside.*", logging.WARNING),
+                ("plain quotation mark", LogLevel.info),
+                (".*inside.*", LogLevel.warning),
             ],
         ),
     ],

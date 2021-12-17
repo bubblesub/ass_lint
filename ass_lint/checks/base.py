@@ -29,6 +29,12 @@ class CheckContext:
         )
 
 
+class LogLevel:
+    debug = 1
+    info = 2
+    warning = 3
+
+
 class BaseResult:
     def __init__(
         self, text: str, events: Optional[list[AssEvent]] = None
@@ -44,15 +50,15 @@ class BaseResult:
 
 
 class DebugInformation(BaseResult):
-    log_level = logging.DEBUG
+    log_level = LogLevel.debug
 
 
 class Information(BaseResult):
-    log_level = logging.INFO
+    log_level = LogLevel.info
 
 
 class Violation(BaseResult):
-    log_level = logging.WARNING
+    log_level = LogLevel.warning
 
 
 class BaseCheck:
