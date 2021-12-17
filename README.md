@@ -9,6 +9,15 @@ A Python tool to check ASS subtitles for common mistakes and errors.
 pip install --user ass-lint
 ```
 
+## To do:
+
+- Split some of the big classes into separate files
+- Add human readable and numeric codes to each check
+- Allow disabling each checks via command line and via inline comments
+- Allow setting the language via command line
+- Allow setting the fonts directory via command line
+- Provide documentation for some more exotic checks such as the fonts check
+
 ## Contributing
 
 ```sh
