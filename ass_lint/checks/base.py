@@ -22,19 +22,10 @@ class CheckContext:
     default_language: str = "en_US"
     fonts_dir = Path("~/.config/oc-fonts").expanduser()
 
-
-class BaseCheck:
-    def __init__(self, context: CheckContext) -> None:
-        self.ctx = context
-
-    async def run(self) -> None:
-        raise NotImplementedError("not implemented")
-
     @property
-    def spell_check_lang(self) -> str:
+    def language(self) -> str:
         return (
-            self.ctx.ass_file.script_info.get("Language")
-            or self.ctx.default_language
+            self.ass_file.script_info.get("Language") or self.default_language
         )
 
 
@@ -64,23 +55,27 @@ class Violation(BaseResult):
     log_level = logging.WARNING
 
 
+class BaseCheck:
+    def __init__(self, context: CheckContext) -> None:
+        self.ctx = context
+
+    async def run(self) -> Iterable[BaseResult]:
+        raise NotImplementedError("not implemented")
+
+
 class BaseEventCheck(BaseCheck):
     def __init__(self, context: CheckContext) -> None:
         super().__init__(context)
         self.construct_event_map()
 
-    async def run(self) -> None:
-        async for result in self.get_violations():
-            logging.log(result.log_level, repr(result))
-
-    async def run_for_event(self, event: AssEvent) -> Iterable[BaseResult]:
-        raise NotImplementedError("not implemented")
-
-    async def get_violations(self) -> Iterable[BaseResult]:
+    async def run(self) -> Iterable[BaseResult]:
         for event in self.ctx.ass_file.events:
             logging.debug(f"{self}: running for event #{event.number}")
             async for violation in self.run_for_event(event):
                 yield violation
+
+    async def run_for_event(self, event: AssEvent) -> Iterable[BaseResult]:
+        raise NotImplementedError("not implemented")
 
     def construct_event_map(self) -> None:
         non_empty_events = [

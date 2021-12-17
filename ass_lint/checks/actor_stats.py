@@ -1,12 +1,11 @@
-import logging
 from collections import defaultdict
 
-from ass_lint.checks.base import BaseCheck
+from ass_lint.checks.base import BaseCheck, Information
 
 
 class CheckActorStats(BaseCheck):
     async def run(self) -> None:
-        logging.info("Actors summary:")
+        result = ["Actors summary:"]
         actors = defaultdict(int)
 
         for event in self.ctx.ass_file.events:
@@ -15,4 +14,6 @@ class CheckActorStats(BaseCheck):
         for actor, occurrences in sorted(
             actors.items(), key=lambda kv: -kv[1]
         ):
-            logging.info(f"– {occurrences} time(s): {actor}")
+            result.append(f"– {occurrences} time(s): {actor}")
+
+        yield Information("\n".join(result))

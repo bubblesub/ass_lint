@@ -1,10 +1,9 @@
-import logging
 from collections import defaultdict
 
 from ass_tag_parser import ass_to_plaintext
 
 from ..common import is_event_karaoke, is_event_title
-from .base import BaseCheck
+from .base import BaseCheck, Information
 
 
 class CheckPunctuationStats(BaseCheck):
@@ -18,7 +17,7 @@ class CheckPunctuationStats(BaseCheck):
             for char in self.CHARS:
                 stats[char] += ass_to_plaintext(event.text).count(char)
 
-        logging.info(
+        yield Information(
             "Punctuation stats: "
             + ", ".join(f"{char}: {count}" for char, count in stats.items())
         )

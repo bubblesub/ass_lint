@@ -16,7 +16,6 @@ from .base import BaseEventCheck, BaseResult, Violation
 
 class CheckPunctuation(BaseEventCheck):
     async def run_for_event(self, event: AssEvent) -> Iterable[BaseResult]:
-        lang = self.spell_check_lang
         text = ass_to_plaintext(event.text)
 
         if text.startswith("\n") or text.endswith("\n"):
@@ -50,7 +49,7 @@ class CheckPunctuation(BaseEventCheck):
             yield Violation("ellipsis in the middle of sentence", [event])
 
         context = re.split(r"\W+", re.sub('[.,?!"]', "", text.lower()))
-        if lang.startswith("en"):
+        if self.ctx.language.lower().startswith("en"):
             for word in [
                 "im",
                 "youre",

@@ -1,4 +1,3 @@
-import logging
 from collections import defaultdict
 from functools import cache
 from pathlib import Path
@@ -8,7 +7,7 @@ import ass_tag_parser
 import fontTools.ttLib as font_tools
 from ass_parser import AssFile
 
-from .base import BaseCheck
+from .base import BaseCheck, Information, Violation
 
 TT_NAME_ID_FONT_FAMILY = 1
 TT_NAME_ID_FULL_NAME = 4
@@ -124,19 +123,21 @@ def locate_font(
 
 class CheckFonts(BaseCheck):
     async def run(self) -> None:
-        logging.info("Fonts summary:")
+        results = ["Fonts summary:"]
 
-        results = get_used_font_styles(self.ctx.ass_file)
+        font_styles = get_used_font_styles(self.ctx.ass_file)
         fonts = get_fonts(self.ctx.fonts_dir)
-        for font_specs, glyphs in results.items():
+        for font_specs, glyphs in font_styles.items():
             font_family, is_bold, is_italic = font_specs
-            logging.info(
+            results.append(
                 f"– {get_font_description(*font_specs)}, {len(glyphs)} glyphs"
             )
 
             result = locate_font(fonts, font_family, is_bold, is_italic)
             if not result:
-                logging.warn("  font file not found")
+                yield Violation(
+                    f"{get_font_description(*font_specs)}: font file not found"
+                )
                 continue
 
             _weight, _font_path, font = result
@@ -146,4 +147,9 @@ class CheckFonts(BaseCheck):
                     missing_glyphs.add(glyph)
 
             if missing_glyphs:
-                logging.warn(f'  missing glyphs: {"".join(missing_glyphs)}')
+                yield Violation(
+                    f"{get_font_description(*font_specs)}: missing glyphs ("
+                    f'{"".join(missing_glyphs)}'
+                )
+
+        yield Information("\n".join(results))

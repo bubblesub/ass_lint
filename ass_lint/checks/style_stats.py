@@ -1,12 +1,11 @@
-import logging
 from collections import defaultdict
 
-from .base import BaseCheck
+from .base import BaseCheck, Information
 
 
 class CheckStyleStats(BaseCheck):
     async def run(self) -> None:
-        logging.info("Styles summary:")
+        results = ["Styles summary:"]
         styles = defaultdict(int)
 
         for event in self.ctx.ass_file.events:
@@ -15,4 +14,6 @@ class CheckStyleStats(BaseCheck):
         for style, occurrences in sorted(
             styles.items(), key=lambda kv: -kv[1]
         ):
-            logging.info(f"– {occurrences} time(s): {style}")
+            results.append(f"– {occurrences} time(s): {style}")
+
+        yield Information("\n".join(results))

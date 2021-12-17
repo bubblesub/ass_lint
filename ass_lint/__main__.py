@@ -61,7 +61,7 @@ def make_context(path: Path) -> CheckContext:
     )
 
 
-def get_event_checks(full: bool) -> Iterable[BaseCheck]:
+def get_checks(full: bool) -> Iterable[BaseCheck]:
     if full:
         yield CheckGrammar
 
@@ -78,25 +78,12 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
     if full:
         yield CheckTimes
 
-
-def get_global_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckVideoResolution
     yield CheckSpelling
     yield CheckActorStats
     yield CheckStyleStats
     yield CheckFonts
     yield CheckPunctuationStats
-
-
-async def list_violations(
-    ctx: CheckContext, checks: list[BaseCheck]
-) -> Iterable[BaseResult]:
-
-    for check_cls in checks:
-        with benchmark(f"{check_cls}"):
-            check = check_cls(ctx)
-            async for violation in check.get_violations():
-                yield violation
 
 
 def parse_args() -> argparse.Namespace:
@@ -122,16 +109,17 @@ async def main() -> None:
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
 
     ctx = make_context(args.path)
-    event_checks = list(get_event_checks(full=args.full))
-    global_checks = list(get_global_checks(full=args.full))
+    checks = list(get_checks(full=args.full))
 
-    async for result in list_violations(ctx, checks=event_checks):
-        logging.log(result.log_level, repr(result))
-
-    for check_cls in global_checks:
+    for check_cls in checks:
         with benchmark(f"{check_cls}"):
-            check = check_cls(ctx)
-            await check.run()
+            try:
+                check = check_cls(ctx)
+            except Exception as ex:
+                logging.warning(ex)
+            else:
+                async for result in check.run():
+                    logging.log(result.log_level, repr(result))
 
 
 if __name__ == "__main__":

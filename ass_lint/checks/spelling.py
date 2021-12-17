@@ -7,7 +7,7 @@ import ass_tag_parser
 import regex
 
 from ..common import is_event_karaoke
-from .base import BaseCheck
+from .base import BaseCheck, Violation
 
 try:
     import enchant
@@ -118,13 +118,9 @@ def spell_check_ass_line(
 
 class CheckSpelling(BaseCheck):
     async def run(self) -> None:
-        lang = self.spell_check_lang
-        if not lang:
-            logging.warn("Spell check was disabled in config.")
-            return
-
         whitelist = WordList()
         blacklist = WordList()
+        lang = self.ctx.language
         lang_short = regex.sub("[-_].*", "", lang)
 
         dict_names = [
@@ -145,11 +141,7 @@ class CheckSpelling(BaseCheck):
                         whitelist.add_word(line)
                 break
 
-        try:
-            spell_checker = SpellChecker(lang, whitelist, blacklist)
-        except SpellCheckerError as ex:
-            logging.error(str(ex))
-            return
+        spell_checker = SpellChecker(lang, whitelist, blacklist)
 
         misspelling_map = defaultdict(set)
         for event in self.ctx.ass_file.events:
@@ -161,16 +153,14 @@ class CheckSpelling(BaseCheck):
             ):
                 misspelling_map[word].add(event.number)
 
+        result = []
         if misspelling_map:
-            logging.info("Misspelled words:")
             for word, line_numbers in sorted(
                 misspelling_map.items(),
                 key=lambda item: len(item[1]),
                 reverse=True,
             ):
-                logging.warn(
-                    f"- {word}: "
+                yield Violation(
+                    f"Misspelled {word}: "
                     + ", ".join(f"#{num}" for num in line_numbers)
                 )
-        else:
-            logging.info("No misspelled words")
