@@ -5,7 +5,13 @@ from copy import copy
 from ass_parser import AssEvent
 from ass_renderer import AssRenderer
 
-from ..common import (
+from ass_lint.common import (
+    BaseEventCheck,
+    BaseResult,
+    CheckContext,
+    Information,
+)
+from ass_lint.util import (
     WIDTH_MULTIPLIERS,
     get_video_aspect_ratio,
     get_video_width,
@@ -13,7 +19,6 @@ from ..common import (
     is_event_title,
     measure_frame_size,
 )
-from .base import BaseEventCheck, BaseResult, CheckContext, Information
 
 
 class CheckUnnecessaryBreaks(BaseEventCheck):

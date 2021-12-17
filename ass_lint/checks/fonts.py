@@ -7,7 +7,7 @@ import ass_tag_parser
 import fontTools.ttLib as font_tools
 from ass_parser import AssFile
 
-from .base import BaseCheck, Information, Violation
+from ass_lint.common import BaseCheck, Information, Violation
 
 TT_NAME_ID_FONT_FAMILY = 1
 TT_NAME_ID_FULL_NAME = 4

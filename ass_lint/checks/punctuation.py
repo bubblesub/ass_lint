@@ -4,14 +4,14 @@ from collections.abc import Iterable
 from ass_parser import AssEvent
 from ass_tag_parser import ass_to_plaintext
 
-from ..common import (
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
+from ass_lint.util import (
     NON_STUTTER_PREFIXES,
     NON_STUTTER_SUFFIXES,
     NON_STUTTER_WORDS,
     WORDS_WITH_PERIOD,
     is_event_title,
 )
-from .base import BaseEventCheck, BaseResult, Violation
 
 
 class CheckPunctuation(BaseEventCheck):

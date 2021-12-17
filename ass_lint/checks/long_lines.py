@@ -3,7 +3,8 @@ from collections.abc import Iterable
 from ass_parser import AssEvent
 from ass_renderer import AssRenderer
 
-from ..common import (
+from ass_lint.common import BaseEventCheck, BaseResult, CheckContext, Violation
+from ass_lint.util import (
     WIDTH_MULTIPLIERS,
     get_optimal_line_heights,
     get_video_aspect_ratio,
@@ -11,7 +12,6 @@ from ..common import (
     is_event_karaoke,
     measure_frame_size,
 )
-from .base import BaseEventCheck, BaseResult, CheckContext, Violation
 
 
 class CheckLongLines(BaseEventCheck):

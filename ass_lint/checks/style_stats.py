@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from .base import BaseCheck, Information
+from ass_lint.common import BaseCheck, Information
 
 
 class CheckStyleStats(BaseCheck):

@@ -7,8 +7,8 @@ from ass_parser import AssEvent
 from ass_renderer import AssRenderer
 from ass_tag_parser import ass_to_plaintext
 
-from ..common import is_event_karaoke
-from .base import BaseEventCheck, BaseResult, CheckContext, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, CheckContext, Violation
+from ass_lint.util import is_event_karaoke
 
 try:
     from gingerit.gingerit import GingerIt

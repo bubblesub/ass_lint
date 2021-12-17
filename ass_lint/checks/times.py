@@ -4,8 +4,8 @@ from typing import Optional
 import numpy as np
 from ass_parser import AssEvent
 
-from ..common import is_event_karaoke
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
+from ass_lint.util import is_event_karaoke
 
 
 def format_delta(delta: int) -> str:

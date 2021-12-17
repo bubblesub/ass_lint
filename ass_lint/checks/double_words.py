@@ -4,7 +4,7 @@ from collections.abc import Iterable
 from ass_parser import AssEvent
 from ass_tag_parser import ass_to_plaintext
 
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
 
 
 class CheckDoubleWords(BaseEventCheck):

@@ -12,7 +12,7 @@ from ass_tag_parser import (
     parse_ass,
 )
 
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
 
 
 def get(source: list[Any], idx: int) -> Any:

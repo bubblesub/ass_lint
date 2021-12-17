@@ -8,30 +8,9 @@ import colorama
 from ass_parser import read_ass
 from ass_renderer import AssRenderer
 
-from ass_lint.checks import (
-    BaseCheck,
-    BaseResult,
-    CheckActorStats,
-    CheckAssTags,
-    CheckContext,
-    CheckDoubleWords,
-    CheckDurations,
-    CheckFonts,
-    CheckGrammar,
-    CheckLineContinuation,
-    CheckLongLines,
-    CheckPunctuation,
-    CheckPunctuationStats,
-    CheckQuotes,
-    CheckSpelling,
-    CheckStyleStats,
-    CheckStyleValidity,
-    CheckTimes,
-    CheckUnnecessaryBreaks,
-    CheckVideoResolution,
-    LogLevel,
-)
-from ass_lint.common import benchmark, get_video_height, get_video_width
+from ass_lint.checks import get_checks
+from ass_lint.common import BaseCheck, BaseResult, CheckContext, LogLevel
+from ass_lint.util import benchmark, get_video_height, get_video_width
 from ass_lint.video import VideoError, VideoSource
 
 
@@ -61,31 +40,6 @@ def make_context(path: Path) -> CheckContext:
         renderer=renderer,
         video=video,
     )
-
-
-def get_checks(full: bool) -> Iterable[BaseCheck]:
-    if full:
-        yield CheckGrammar
-
-    yield CheckStyleValidity
-    yield CheckAssTags
-    yield CheckDurations
-    yield CheckPunctuation
-    yield CheckQuotes
-    yield CheckLineContinuation
-    yield CheckDoubleWords
-    yield CheckUnnecessaryBreaks
-    yield CheckLongLines
-
-    if full:
-        yield CheckTimes
-
-    yield CheckVideoResolution
-    yield CheckSpelling
-    yield CheckActorStats
-    yield CheckStyleStats
-    yield CheckFonts
-    yield CheckPunctuationStats
 
 
 def parse_args() -> argparse.Namespace:

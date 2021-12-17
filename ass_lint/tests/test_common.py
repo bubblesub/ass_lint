@@ -1,6 +1,6 @@
 from ass_parser import AssEvent, AssEventList
 
-from ass_lint.checks import Violation
+from ass_lint.common import Violation
 
 
 def test_violation_single_event() -> None:

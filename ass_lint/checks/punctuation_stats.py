@@ -2,8 +2,8 @@ from collections import defaultdict
 
 from ass_tag_parser import ass_to_plaintext
 
-from ..common import is_event_karaoke, is_event_title
-from .base import BaseCheck, Information
+from ass_lint.common import BaseCheck, Information
+from ass_lint.util import is_event_karaoke, is_event_title
 
 
 class CheckPunctuationStats(BaseCheck):

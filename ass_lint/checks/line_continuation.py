@@ -4,8 +4,8 @@ import regex
 from ass_parser import AssEvent
 from ass_tag_parser import ass_to_plaintext
 
-from ..common import WORDS_WITH_PERIOD, is_event_dialog
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
+from ass_lint.util import WORDS_WITH_PERIOD, is_event_dialog
 
 
 class CheckLineContinuation(BaseEventCheck):

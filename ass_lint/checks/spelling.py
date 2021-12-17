@@ -6,8 +6,8 @@ from functools import cache
 import ass_tag_parser
 import regex
 
-from ..common import is_event_karaoke, suppress_stderr
-from .base import BaseCheck, Violation
+from ass_lint.common import BaseCheck, Violation
+from ass_lint.util import is_event_karaoke, suppress_stderr
 
 try:
     with suppress_stderr():

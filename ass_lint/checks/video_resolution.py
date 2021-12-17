@@ -1,5 +1,9 @@
-from ..common import get_video_aspect_ratio, get_video_height, get_video_width
-from .base import BaseCheck, Violation
+from ass_lint.common import BaseCheck, Violation
+from ass_lint.util import (
+    get_video_aspect_ratio,
+    get_video_height,
+    get_video_width,
+)
 
 
 class CheckVideoResolution(BaseCheck):

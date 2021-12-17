@@ -2,7 +2,7 @@ from collections.abc import Iterable
 
 from ass_parser import AssEvent
 
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
 
 
 class CheckStyleValidity(BaseEventCheck):

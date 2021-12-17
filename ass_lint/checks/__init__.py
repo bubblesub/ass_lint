@@ -1,55 +1,50 @@
-from .actor_stats import CheckActorStats
-from .ass_tags import CheckAssTags
-from .base import (
-    BaseCheck,
-    BaseEventCheck,
-    BaseResult,
-    CheckContext,
-    DebugInformation,
-    Information,
-    LogLevel,
-    Violation,
-)
-from .double_words import CheckDoubleWords
-from .durations import CheckDurations
-from .fonts import CheckFonts
-from .grammar import CheckGrammar
-from .line_continuation import CheckLineContinuation
-from .long_lines import CheckLongLines
-from .punctuation import CheckPunctuation
-from .punctuation_stats import CheckPunctuationStats
-from .quotes import CheckQuotes
-from .spelling import CheckSpelling
-from .style_stats import CheckStyleStats
-from .style_validity import CheckStyleValidity
-from .times import CheckTimes
-from .unnecessary_breaks import CheckUnnecessaryBreaks
-from .video_resolution import CheckVideoResolution
+from collections.abc import Iterable
+
+from ass_lint.checks.actor_stats import CheckActorStats
+from ass_lint.checks.ass_tags import CheckAssTags
+from ass_lint.checks.double_words import CheckDoubleWords
+from ass_lint.checks.durations import CheckDurations
+from ass_lint.checks.fonts import CheckFonts
+from ass_lint.checks.grammar import CheckGrammar
+from ass_lint.checks.line_continuation import CheckLineContinuation
+from ass_lint.checks.long_lines import CheckLongLines
+from ass_lint.checks.punctuation import CheckPunctuation
+from ass_lint.checks.punctuation_stats import CheckPunctuationStats
+from ass_lint.checks.quotes import CheckQuotes
+from ass_lint.checks.spelling import CheckSpelling
+from ass_lint.checks.style_stats import CheckStyleStats
+from ass_lint.checks.style_validity import CheckStyleValidity
+from ass_lint.checks.times import CheckTimes
+from ass_lint.checks.unnecessary_breaks import CheckUnnecessaryBreaks
+from ass_lint.checks.video_resolution import CheckVideoResolution
+from ass_lint.common import BaseCheck
+
+
+def get_checks(full: bool) -> Iterable[BaseCheck]:
+    if full:
+        yield CheckGrammar
+
+    yield CheckStyleValidity
+    yield CheckAssTags
+    yield CheckDurations
+    yield CheckPunctuation
+    yield CheckQuotes
+    yield CheckLineContinuation
+    yield CheckDoubleWords
+    yield CheckUnnecessaryBreaks
+    yield CheckLongLines
+
+    if full:
+        yield CheckTimes
+
+    yield CheckVideoResolution
+    yield CheckSpelling
+    yield CheckActorStats
+    yield CheckStyleStats
+    yield CheckFonts
+    yield CheckPunctuationStats
+
 
 __all__ = [
-    "BaseCheck",
-    "BaseEventCheck",
-    "BaseResult",
-    "CheckActorStats",
-    "CheckAssTags",
-    "CheckContext",
-    "CheckDoubleWords",
-    "CheckDurations",
-    "CheckFonts",
-    "CheckGrammar",
-    "CheckLineContinuation",
-    "CheckLongLines",
-    "CheckPunctuation",
-    "CheckPunctuationStats",
-    "CheckQuotes",
-    "CheckSpelling",
-    "CheckStyleStats",
-    "CheckStyleValidity",
-    "CheckTimes",
-    "CheckUnnecessaryBreaks",
-    "CheckVideoResolution",
-    "DebugInformation",
-    "Information",
-    "LogLevel",
-    "Violation",
+    "get_checks",
 ]

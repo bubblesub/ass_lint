@@ -4,8 +4,8 @@ from collections.abc import Iterable
 from ass_parser import AssEvent
 from ass_tag_parser import ass_to_plaintext
 
-from ..common import is_event_karaoke
-from .base import BaseEventCheck, BaseResult, Violation
+from ass_lint.common import BaseEventCheck, BaseResult, Violation
+from ass_lint.util import is_event_karaoke
 
 MIN_DURATION = 250  # milliseconds
 MIN_DURATION_LONG = 500  # milliseconds

@@ -4,8 +4,8 @@ from unittest.mock import Mock
 import pytest
 from ass_parser import AssEvent
 
-from ass_lint.checks.base import LogLevel
 from ass_lint.checks.quotes import CheckQuotes
+from ass_lint.common import LogLevel
 
 
 @pytest.fixture(name="check_quotes")
