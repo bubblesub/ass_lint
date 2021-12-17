@@ -13,4 +13,4 @@ class CheckDoubleWords(BaseEventCheck):
 
         for pair in re.finditer(r"(?<!\w)(\w+)\s+\1(?!\w)", text):
             word = pair.group(1)
-            yield Violation(event, f"double word ({word})")
+            yield Violation(f"double word ({word})", [event])

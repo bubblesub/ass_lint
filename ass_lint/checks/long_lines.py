@@ -48,8 +48,8 @@ class CheckLongLines(BaseEventCheck):
             width_multiplier = self.width_multipliers[line_count]
         except LookupError:
             yield Violation(
-                event,
                 f"too many lines ({height}/{average_height} = {line_count})",
+                [event],
             )
         else:
             optimal_width = (
@@ -57,7 +57,7 @@ class CheckLongLines(BaseEventCheck):
             )
             if width > optimal_width:
                 yield Violation(
-                    event,
                     f"too long line "
                     f"({width - optimal_width:.02f} beyond {optimal_width:.02f})",
+                    [event],
                 )

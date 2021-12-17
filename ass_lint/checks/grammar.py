@@ -45,4 +45,4 @@ class CheckGrammar(BaseEventCheck):
             None, parse, text
         )
         if result and result["result"].lower() != text.lower():
-            yield Violation(event, f'suggested change: {result["result"]}')
+            yield Violation(f'suggested change: {result["result"]}', [event])

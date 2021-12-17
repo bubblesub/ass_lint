@@ -20,34 +20,34 @@ class CheckPunctuation(BaseEventCheck):
         text = ass_to_plaintext(event.text)
 
         if text.startswith("\n") or text.endswith("\n"):
-            yield Violation(event, "extra line break")
+            yield Violation("extra line break", [event])
         elif re.search(r"^\s|\s$", text):
-            yield Violation(event, "extra whitespace")
+            yield Violation("extra whitespace", [event])
 
         if text.count("\n") >= 2:
-            yield Violation(event, "three or more lines")
+            yield Violation("three or more lines", [event])
 
         if re.search(r"\n[ \t]|[ \t]\n", text):
-            yield Violation(event, "whitespace around line break")
+            yield Violation("whitespace around line break", [event])
 
         if re.search(r"\n[.,?!:;…]", text):
-            yield Violation(event, "line break before punctuation")
+            yield Violation("line break before punctuation", [event])
         elif re.search(r"\s[.,?!:;…]", text):
-            yield Violation(event, "whitespace before punctuation")
+            yield Violation("whitespace before punctuation", [event])
 
         if "  " in text:
-            yield Violation(event, "double space")
+            yield Violation("double space", [event])
 
         if "..." in text:
-            yield Violation(event, "bad ellipsis (expected …)")
+            yield Violation("bad ellipsis (expected …)", [event])
         elif re.search("[…,.!?:;][,.]", text):
-            yield Violation(event, "extra comma or dot")
+            yield Violation("extra comma or dot", [event])
         elif re.search(r"!!|\?\?", text):
-            yield Violation(event, "double punctuation mark")
+            yield Violation("double punctuation mark", [event])
         elif re.search(r"…[!?]|[!?]…", text):
-            yield Violation(event, "ellipsis around punctuation mark")
+            yield Violation("ellipsis around punctuation mark", [event])
         elif re.search(r"[!?\.] …", text):
-            yield Violation(event, "ellipsis in the middle of sentence")
+            yield Violation("ellipsis in the middle of sentence", [event])
 
         context = re.split(r"\W+", re.sub('[.,?!"]', "", text.lower()))
         if lang.startswith("en"):
@@ -79,36 +79,36 @@ class CheckPunctuation(BaseEventCheck):
                 "ive",
             ]:
                 if word in context:
-                    yield Violation(event, "missing apostrophe")
+                    yield Violation("missing apostrophe", [event])
 
         if "’" in text:
-            yield Violation(event, "bad apostrophe")
+            yield Violation("bad apostrophe", [event])
 
         if re.search("^– .* –$", text, flags=re.M):
-            yield Violation(event, "bad dash (expected —)")
+            yield Violation("bad dash (expected —)", [event])
         elif not re.search("^—.*—$", text, flags=re.M):
             if len(re.findall(r"^–|[\.…!?] –", text, flags=re.M)) == 1:
-                yield Violation(event, "dialog with just one person")
+                yield Violation("dialog with just one person", [event])
 
             if re.search(r"[-–]$", text, flags=re.M):
-                yield Violation(event, "bad dash (expected —)")
+                yield Violation("bad dash (expected —)", [event])
 
             if re.search(r"^- |^—", text, flags=re.M):
-                yield Violation(event, "bad dash (expected –)")
+                yield Violation("bad dash (expected –)", [event])
 
             if re.search(r" - ", text, flags=re.M):
-                yield Violation(event, "bad dash (expected –)")
+                yield Violation("bad dash (expected –)", [event])
 
         if re.search(r"\s+'(t|re|s)\b", text):
-            yield Violation(event, "whitespace before apostrophe")
+            yield Violation("whitespace before apostrophe", [event])
 
         if re.search(r" —|— (?![A-Z])", text) and not is_event_title(event):
-            yield Violation(event, "whitespace around —")
+            yield Violation("whitespace around —", [event])
 
         match = re.search(r"(\w+[\.!?])\s+[a-z]", text, flags=re.M)
         if match:
             if match.group(1) not in WORDS_WITH_PERIOD:
-                yield Violation(event, "lowercase letter after sentence end")
+                yield Violation("lowercase letter after sentence end", [event])
 
         match = re.search(r"^([A-Z][a-z]{,3})(-([a-z]+))+", text, flags=re.M)
         if match:
@@ -117,12 +117,16 @@ class CheckPunctuation(BaseEventCheck):
                 and match.group(1).lower() not in NON_STUTTER_PREFIXES
                 and match.group(2).lower() not in NON_STUTTER_SUFFIXES
             ):
-                yield Violation(event, "possibly wrong stutter capitalization")
+                yield Violation(
+                    "possibly wrong stutter capitalization", [event]
+                )
 
         if re.search(r"[\.,?!:;][A-Za-z]|[a-zA-Z]…[A-Za-z]", text):
-            yield Violation(event, "missing whitespace after punctuation mark")
+            yield Violation(
+                "missing whitespace after punctuation mark", [event]
+            )
 
         if re.search(
             "\\s|\N{ZERO WIDTH SPACE}", text.replace(" ", "").replace("\n", "")
         ):
-            yield Violation(event, "unrecognized whitespace")
+            yield Violation("unrecognized whitespace", [event])

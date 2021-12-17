@@ -55,7 +55,8 @@ class CheckUnnecessaryBreaks(BaseEventCheck):
 
         if width < self.optimal_width:
             yield Information(
-                event,
                 f"possibly unnecessary break "
-                f"({self.optimal_width - width:.02f} until {self.optimal_width:.02f})",
+                f"({self.optimal_width - width:.02f} until "
+                f"{self.optimal_width:.02f})",
+                [event],
             )

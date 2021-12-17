@@ -26,7 +26,7 @@ class CheckAssTags(BaseEventCheck):
         try:
             ass_line = parse_ass(event.text)
         except ParseError as ex:
-            yield Violation(event, f"invalid syntax ({ex})")
+            yield Violation(f"invalid syntax ({ex})", [event])
             return
 
         for i, item in enumerate(ass_line):
@@ -35,16 +35,16 @@ class CheckAssTags(BaseEventCheck):
                 and isinstance(get(ass_line, i - 1), AssTagListEnding)
                 and not isinstance(get(ass_line, i - 2), AssTagKaraoke)
             ):
-                yield Violation(event, "disjointed tags")
+                yield Violation("disjointed tags", [event])
 
             if isinstance(item, AssTagListEnding) and isinstance(
                 get(ass_line, i - 1), AssTagListOpening
             ):
-                yield Violation(event, "pointless tag")
+                yield Violation("pointless tag", [event])
 
         for item in ass_line:
             if isinstance(item, AssTagAlignment) and item.legacy:
-                yield Violation(event, "using legacy alignment tag")
+                yield Violation("using legacy alignment tag", [event])
 
             elif isinstance(item, AssTagComment):
-                yield Violation(event, "use notes to make comments")
+                yield Violation("use notes to make comments", [event])

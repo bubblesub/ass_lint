@@ -40,22 +40,14 @@ class BaseCheck:
 
 class BaseResult:
     def __init__(
-        self, event: Union[AssEvent, list[AssEvent]], text: str
+        self, text: str, events: Optional[list[AssEvent]] = None
     ) -> None:
-        if isinstance(event, list):
-            self.event = event[0]
-            self.additional_events = event[1:]
-        else:
-            self.event = event
-            self.additional_events = []
+        self.events = events
         self.text = text
 
-    @property
-    def events(self) -> Iterable[AssEvent]:
-        yield self.event
-        yield from self.additional_events
-
     def __repr__(self) -> str:
+        if not self.events:
+            return self.text
         ids = "+".join([f'#{event.number or "?"}' for event in self.events])
         return f"{ids}: {self.text}"
 

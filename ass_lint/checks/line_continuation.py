@@ -18,7 +18,7 @@ class CheckLineContinuation(BaseEventCheck):
         prev_text = ass_to_plaintext(prev_event.text) if prev_event else ""
 
         if text.endswith("…") and next_text.startswith("…"):
-            yield Violation([event, next_event], "old-style line continuation")
+            yield Violation("old-style line continuation", [event, next_event])
 
         if (
             is_event_dialog(event)
@@ -26,7 +26,7 @@ class CheckLineContinuation(BaseEventCheck):
             and regex.search(r"\A\p{Ll}", text, flags=regex.M)
             and not regex.search(r"[,:\p{Ll}]\Z", prev_text, flags=regex.M)
         ):
-            yield Violation(event, "sentence begins with a lowercase letter")
+            yield Violation("sentence begins with a lowercase letter", [event])
 
         if not event.is_comment and is_event_dialog(event):
             if regex.search(
@@ -36,4 +36,4 @@ class CheckLineContinuation(BaseEventCheck):
                 next_text,
                 flags=regex.M,
             ):
-                yield Violation(event, "possibly unended sentence")
+                yield Violation("possibly unended sentence", [event])

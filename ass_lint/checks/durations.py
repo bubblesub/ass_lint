@@ -31,11 +31,13 @@ class CheckDurations(BaseEventCheck):
 
         if event.duration < MIN_DURATION_LONG and character_count(text) >= 8:
             yield Violation(
-                event, f"duration shorter than {MIN_DURATION_LONG} ms"
+                f"duration shorter than {MIN_DURATION_LONG} ms", [event]
             )
 
         elif event.duration < MIN_DURATION:
-            yield Violation(event, f"duration shorter than {MIN_DURATION} ms")
+            yield Violation(
+                f"duration shorter than {MIN_DURATION} ms", [event]
+            )
 
         next_event = self.get_next_non_empty_event(event)
 
@@ -45,6 +47,6 @@ class CheckDurations(BaseEventCheck):
             gap = next_event.start - event.end
             if 0 < gap < MIN_GAP:
                 yield Violation(
-                    [event, next_event],
                     f"gap shorter than {MIN_GAP} ms ({gap} ms)",
+                    [event, next_event],
                 )

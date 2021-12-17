@@ -18,23 +18,25 @@ class CheckQuotes(BaseEventCheck):
         text = ass_to_plaintext(event.text)
 
         if text.count('"'):
-            yield Information(event, "plain quotation mark")
+            yield Information("plain quotation mark", [event])
 
         if (
             (text.count("„") + text.count("“")) != text.count("”")
         ) or text.count('"') % 2 == 1:
-            yield Information(event, "partial quote")
+            yield Information("partial quote", [event])
             return
 
         if re.search(r'[:,]["”]', text):
-            yield Violation(event, "punctuation inside quotation marks")
+            yield Violation("punctuation inside quotation marks", [event])
 
         if re.search(r'["”][\.,…?!]', text, flags=re.M):
             yield DebugInformation(
-                event, "punctuation outside quotation marks"
+                "punctuation outside quotation marks", [event]
             )
 
         if re.search(r'[a-z]\s[„“"].+[\.…?!]["”]', text, flags=re.M):
-            yield Violation(event, "punctuation inside quotation marks")
+            yield Violation("punctuation inside quotation marks", [event])
         elif re.search(r'[„“"].+[\.…?!]["”]', text, flags=re.M):
-            yield DebugInformation(event, "punctuation inside quotation marks")
+            yield DebugInformation(
+                "punctuation inside quotation marks", [event]
+            )

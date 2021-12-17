@@ -37,14 +37,14 @@ class CheckTimes(BaseEventCheck):
         delta = await self.get_best_pivot(event.start)
         if delta:
             yield Violation(
-                event,
                 f"start does not snap to scene boundary ({format_delta(delta)}f)",
+                [event],
             )
         delta = await self.get_best_pivot(event.end)
         if delta:
             yield Violation(
-                event,
                 f"end does not snap to scene boundary ({format_delta(delta)}f)",
+                [event],
             )
 
     async def get_video_frame_avg(self, frame_idx: int) -> Optional[float]:
