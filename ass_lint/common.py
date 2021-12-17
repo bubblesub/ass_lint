@@ -1,5 +1,6 @@
 import enum
 import logging
+import os
 from contextlib import contextmanager
 from copy import copy
 from datetime import datetime
@@ -175,3 +176,14 @@ def benchmark(message: str) -> None:
     end = datetime.now()
     duration = end - start
     logging.debug(f"{message}: {duration}")
+
+
+@contextmanager
+def suppress_stderr():
+    """Low level stderr supression."""
+    newstderr = os.dup(2)
+    devnull = os.open(os.devnull, os.O_WRONLY)
+    os.dup2(devnull, 2)
+    os.close(devnull)
+    yield
+    os.dup2(newstderr, 2)

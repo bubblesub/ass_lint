@@ -6,11 +6,12 @@ from functools import cache
 import ass_tag_parser
 import regex
 
-from ..common import is_event_karaoke
+from ..common import is_event_karaoke, suppress_stderr
 from .base import BaseCheck, Violation
 
 try:
-    import enchant
+    with suppress_stderr():
+        import enchant
 except ImportError:
     enchant = None
 
