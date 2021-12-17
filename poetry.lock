@@ -11,7 +11,7 @@ test = ["pytest", "black"]
 
 [[package]]
 name = "ass-renderer"
-version = "0.2"
+version = "0.3"
 description = "Render ASS subtitles as numpy bitmaps."
 category = "main"
 optional = false
@@ -428,15 +428,15 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.11"
-content-hash = "9b580592b28214c2c17875ecc3f6e7ed4858a54d628dc9f1eebab07abf768d76"
+content-hash = "c99cad673373e0fb077770481c562c2e95df0b24d56fd1a5278fa21dced26d2b"
 
 [metadata.files]
 ass-parser = [
     {file = "ass_parser-1.0.tar.gz", hash = "sha256:1b1fb759e9129b1fa21f8bb99552daac1411862238951ea9279450449c082754"},
 ]
 ass-renderer = [
-    {file = "ass_renderer-0.2-py3-none-any.whl", hash = "sha256:3636a707e827ef7468d89a898757c2995cd1f34c4f84180c912819fdde30fd28"},
-    {file = "ass_renderer-0.2.tar.gz", hash = "sha256:0c7502ae2ca1c12a73d2930a62e063a2a3d376811795c8c48e8476685acb9072"},
+    {file = "ass_renderer-0.3-py3-none-any.whl", hash = "sha256:02b60be0df267377926453b0fd120296a1a2f517e03ed02381e847f84289e3a1"},
+    {file = "ass_renderer-0.3.tar.gz", hash = "sha256:389ebc347b0c8bc65c56ec46fdd3fa6785b06a6c6b6dfbeec7a948c56a961847"},
 ]
 ass-tag-parser = [
     {file = "ass_tag_parser-2.4.tar.gz", hash = "sha256:a4e7033fae375d6a0cbdbb3819bdf91f4901deef076f95f26c72bcdc47619892"},
