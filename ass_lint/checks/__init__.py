@@ -22,6 +22,7 @@ from .spelling import CheckSpelling
 from .style_stats import CheckStyleStats
 from .style_validity import CheckStyleValidity
 from .unnecessary_breaks import CheckUnnecessaryBreaks
+from .video_resolution import CheckVideoResolution
 
 __all__ = [
     "BaseCheck",
@@ -43,6 +44,7 @@ __all__ = [
     "CheckStyleStats",
     "CheckStyleValidity",
     "CheckUnnecessaryBreaks",
+    "CheckVideoResolution",
     "DebugInformation",
     "Information",
     "Violation",
