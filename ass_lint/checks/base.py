@@ -86,6 +86,7 @@ class BaseEventCheck(BaseCheck):
 
     async def get_violations(self) -> Iterable[BaseResult]:
         for event in self.ctx.ass_file.events:
+            logging.debug(f"{self}: running for event #{event.number}")
             async for violation in self.run_for_event(event):
                 yield violation
 

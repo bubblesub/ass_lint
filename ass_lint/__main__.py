@@ -108,12 +108,18 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="run slower checks",
     )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_true",
+        help="show debug information",
+    )
     return parser.parse_args()
 
 
 async def main() -> None:
     args = parse_args()
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
 
     ctx = make_context(args.path)
     event_checks = list(get_event_checks(full=args.full))
