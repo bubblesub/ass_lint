@@ -129,6 +129,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "ffms2"
+version = "0.4.5.5"
+description = "Bindings for FFmpegSource"
+category = "main"
+optional = true
+python-versions = ">=3.7"
+
+[package.dependencies]
+numpy = "*"
+
+[[package]]
 name = "filelock"
 version = "3.4.0"
 description = "A platform independent file lock."
@@ -417,7 +428,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.11"
-content-hash = "e3f07e2527a90085fcd6355a42978abb6b0330a0c872bd6ce4939b0ac3592a7f"
+content-hash = "4d128285ee335ab03fba510a57ed213652fa4d8bfc21148871dff6286368ecfd"
 
 [metadata.files]
 ass-parser = [
@@ -461,6 +472,10 @@ colorama = [
 distlib = [
     {file = "distlib-0.3.4-py2.py3-none-any.whl", hash = "sha256:6564fe0a8f51e734df6333d08b8b94d4ea8ee6b99b5ed50613f731fd4089f34b"},
     {file = "distlib-0.3.4.zip", hash = "sha256:e4b58818180336dc9c529bfb9a0b58728ffc09ad92027a3f30b7cd91e3458579"},
+]
+ffms2 = [
+    {file = "ffms2-0.4.5.5-cp37.cp38.cp39-none-win_amd64.whl", hash = "sha256:1564c75505e6057634dab47df6895feaf1f4774a4fd4ce65730f268284bc6dd4"},
+    {file = "ffms2-0.4.5.5.tar.gz", hash = "sha256:3dfd9b2a0078629723597cb37358795a3d3858effb4b7760f60c3a173ad50529"},
 ]
 filelock = [
     {file = "filelock-3.4.0-py3-none-any.whl", hash = "sha256:2e139a228bcf56dd8b2274a65174d005c4a6b68540ee0bdbb92c76f43f29f7e8"},

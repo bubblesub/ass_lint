@@ -21,6 +21,7 @@ from .quotes import CheckQuotes
 from .spelling import CheckSpelling
 from .style_stats import CheckStyleStats
 from .style_validity import CheckStyleValidity
+from .times import CheckTimes
 from .unnecessary_breaks import CheckUnnecessaryBreaks
 from .video_resolution import CheckVideoResolution
 
@@ -43,6 +44,7 @@ __all__ = [
     "CheckSpelling",
     "CheckStyleStats",
     "CheckStyleValidity",
+    "CheckTimes",
     "CheckUnnecessaryBreaks",
     "CheckVideoResolution",
     "DebugInformation",

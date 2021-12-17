@@ -25,10 +25,12 @@ from ass_lint.checks import (
     CheckSpelling,
     CheckStyleStats,
     CheckStyleValidity,
+    CheckTimes,
     CheckUnnecessaryBreaks,
     CheckVideoResolution,
 )
 from ass_lint.common import benchmark, get_video_height, get_video_width
+from ass_lint.video import VideoError, VideoSource
 
 
 def make_context(path: Path) -> CheckContext:
@@ -42,11 +44,20 @@ def make_context(path: Path) -> CheckContext:
     renderer = AssRenderer()
     renderer.set_source(ass_file=ass_file, video_resolution=video_resolution)
 
+    video = None
+    if video_path := ass_file.script_info.get("Video File"):
+        video_path = path.parent / video_path
+        try:
+            video = VideoSource(video_path)
+        except VideoError as ex:
+            logging.warning(ex)
+
     return CheckContext(
         subs_path=path,
         ass_file=ass_file,
         video_resolution=video_resolution,
         renderer=renderer,
+        video=video,
     )
 
 
@@ -63,6 +74,9 @@ def get_event_checks(full: bool) -> Iterable[BaseCheck]:
     yield CheckDoubleWords
     yield CheckUnnecessaryBreaks
     yield CheckLongLines
+
+    if full:
+        yield CheckTimes
 
 
 def get_global_checks(full: bool) -> Iterable[BaseCheck]:

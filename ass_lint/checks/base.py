@@ -8,6 +8,8 @@ from ass_parser import AssEvent, AssFile
 from ass_renderer import AssRenderer
 from ass_tag_parser import ass_to_plaintext
 
+from ass_lint.video import VideoSource
+
 
 @dataclass
 class CheckContext:
@@ -15,6 +17,8 @@ class CheckContext:
     ass_file: AssFile
     renderer: AssRenderer
     video_resolution: tuple[int, int]
+    video: Optional[VideoSource]
+
     default_language: str = "en_US"
     fonts_dir = Path("~/.config/oc-fonts").expanduser()
 
